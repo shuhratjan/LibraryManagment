@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using LibraryManagment.Models;
+using LibraryManagment.Data.Model;
 
 namespace LibraryManagment.Data
 {
@@ -14,6 +15,10 @@ namespace LibraryManagment.Data
             : base(options)
         {
         }
+
+        public DbSet<Customer> Customers{ get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
