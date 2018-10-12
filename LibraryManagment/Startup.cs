@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using LibraryManagment.Data;
 using LibraryManagment.Models;
 using LibraryManagment.Services;
+using LibraryManagment.Data.Interfaces;
+using LibraryManagment.Data.Repository;
 
 namespace LibraryManagment
 {
@@ -35,6 +37,9 @@ namespace LibraryManagment
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IAuthorRepository, AuthorRepository>();
+            services.AddTransient<IBookRepository, BookRepository>();
 
             services.AddMvc();
         }

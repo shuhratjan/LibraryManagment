@@ -1,4 +1,5 @@
-﻿using LibraryManagment.Data.Model;
+﻿using LibraryManagment.Data.Interfaces;
+using LibraryManagment.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
