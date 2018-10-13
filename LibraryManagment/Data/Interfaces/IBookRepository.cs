@@ -12,5 +12,6 @@ namespace LibraryManagment.Data.Interfaces
 
         IEnumerable<Book> FindWithAuthor(Func<Book, bool> predicate);
         IEnumerable<Book> FindWithAuthorAndBorrower(Func<Book, bool> predicate);
+       
     }
 }
