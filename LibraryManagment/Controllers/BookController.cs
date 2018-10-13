@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LibraryManagment.Data.Interfaces;
 using LibraryManagment.Data.Model;
+using LibraryManagment.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -57,6 +58,46 @@ namespace LibraryManagment.Controllers
                 return View("Empty");
             }
             return View(books);
+        }
+
+        public IActionResult Create()
+        {
+            var bookVM = new BookViewModel()
+            {
+                Authors = _authorRepository.GetAll()
+            };
+            return View(bookVM);
+        }
+
+        [HttpPost]
+        public IActionResult Create(BookViewModel bookViewModel)
+        {
+            _bookRepository.Create(bookViewModel.Book);
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Update(Guid id)
+        {
+            var bookVM = new BookViewModel()
+            {
+                Book = _bookRepository.GetById(id),
+                Authors = _authorRepository.GetAll()
+            };
+            return View(bookVM);
+        }
+
+        [HttpPost]
+        public IActionResult Update(BookViewModel bookViewModel)
+        {
+            _bookRepository.Update(bookViewModel.Book);
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Delete(Guid id)
+        {
+            var book = _bookRepository.GetById(id);
+            _bookRepository.Delete(book);
+            return RedirectToAction("List");
         }
     }
 }
