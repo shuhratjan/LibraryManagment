@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LibraryManagment.Data.Interfaces;
 using LibraryManagment.Data.Model;
+using LibraryManagment.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 namespace LibraryManagment.Controllers
 {
@@ -49,18 +50,28 @@ namespace LibraryManagment.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var viewVM = new CreateAuthorViewModel
+            {
+                Referer = Request.Headers["Referer"].ToString()
+            };
+            return View(viewVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Author author)
+        public IActionResult Create(CreateAuthorViewModel authorVM)
         {
             if (!ModelState.IsValid)
             {
-                return View(author);
+                return View(authorVM);
             }
 
-            _authorRepository.Create(author);
+            _authorRepository.Create(authorVM.Author);
+
+            if (!String.IsNullOrEmpty(authorVM.Referer))
+            {
+                return Redirect(authorVM.Referer); 
+            }
+
             return RedirectToAction("List");
         }
 
