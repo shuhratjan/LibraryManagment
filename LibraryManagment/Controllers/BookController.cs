@@ -29,7 +29,7 @@ namespace LibraryManagment.Controllers
                 var books = _bookRepository.GetAllWithAuthor();
                 return CheckBooks(books);
             }
-            else if (authorId != null)
+            else if (authorId != Guid.Empty)
             {
                 var author = _authorRepository.GetWithBooks((Guid)authorId);
                 if (author.Books.Count() == 0)
@@ -39,7 +39,7 @@ namespace LibraryManagment.Controllers
                 return View(author.Books);
 
             }
-            else if(borrowerId!=null)
+            else if(borrowerId!= Guid.Empty)
             {
                 var books = _bookRepository
                     .FindWithAuthorAndBorrower(book => book.BorrowerId == borrowerId);
